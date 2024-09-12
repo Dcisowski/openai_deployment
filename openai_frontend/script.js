@@ -46,7 +46,7 @@ async function sendMessage() {
         },
         body: JSON.stringify({ message: userMessage }),
     });
-
+    console.log(BACKEND_URL)
     const data = await response.json();
     const assistantMessage = data.response;
 
