@@ -24,7 +24,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ vars.GCP_PROJECT_ID }}
-          install_components: 'alpha'  # Optional, if you need extra components
+          install_components: 'alpha'  # Optional, if you need extra components!
 
       - name: Build and Push Docker image for Backend to Artifact Registry
         run: |
