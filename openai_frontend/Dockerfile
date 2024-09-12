@@ -5,10 +5,10 @@ FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy custom NGINX configuration file
-COPY nginx.conf /etc/nginx/conf.d/
+COPY openai_frontend/nginx.conf /etc/nginx/conf.d/
 
 # Copy your static files into the NGINX default serving directory
-COPY . /usr/share/nginx/html
+COPY /openai_frontend /usr/share/nginx/html
 
 # Expose port 8080 instead of port 80
 EXPOSE 8080
