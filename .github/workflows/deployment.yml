@@ -12,19 +12,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+            
       # Authenticate using a Google Cloud service account
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      # Set up Google Cloud SDK
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          project_id: ${{ vars.GCP_PROJECT_ID }}
-          install_components: 'alpha'  # Optional, if you need extra components!
+      # Set up Docker authentication to push to Artifact Registry (Important step)
+      - name: Configure Docker for Artifact Registry
+        run: |
+          gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Build and Push Docker image for Backend to Artifact Registry
         run: |
@@ -56,18 +54,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Authenticate using a Google Cloud service account
+            # Authenticate using a Google Cloud service account
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      # Set up Google Cloud SDK
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          project_id: ${{ vars.GCP_PROJECT_ID }}
-          install_components: 'alpha'  # Optional, if you need extra components
+      # Set up Docker authentication to push to Artifact Registry (Important step)
+      - name: Configure Docker for Artifact Registry
+        run: |
+          gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Modify Frontend to Use Backend URL
         run: |
