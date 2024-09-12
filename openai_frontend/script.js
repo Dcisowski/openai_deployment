@@ -1,4 +1,4 @@
-cloud_run_backend_url = "https://openai-backend-service-908601642528.us-central1.run.app"
+const BACKEND_URL = 'REPLACE_WITH_BACKEND_URL';
 
 const openingMessages = [
     "Cześć! Jak mogę Ci dzisiaj pomóc?",
@@ -39,7 +39,7 @@ async function sendMessage() {
     messagesDiv.appendChild(userMessageParagraph);
 
     // Wysłanie wiadomości do backendu
-    const response = await fetch(`${cloud_run_backend_url}/send_message`, {
+    const response = await fetch(`${BACKEND_URL}/send_message`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
