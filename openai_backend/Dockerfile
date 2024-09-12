@@ -3,13 +3,13 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Kopiowanie pliku requirements.txt
-COPY requirements.txt .
+COPY openai_backend/requirements.txt .
 
 # Instalacja zależności
 RUN pip install -r requirements.txt
 
 # Kopiowanie wszystkich plików aplikacji
-COPY . .
+COPY /openai_backend .
 
 # Ustawienie portu, na którym Flask nasłuchuje
 EXPOSE 8080
