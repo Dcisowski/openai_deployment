@@ -11,7 +11,7 @@ RUN pip install -r requirements.txt
 # Kopiowanie wszystkich plików aplikacji
 COPY /openai_backend .
 
-# Ustawienie portu, na którym Flask nasłuchuje
+# Ustawienie portu, na którym Flask nasssłuchuje
 EXPOSE 8080
 
 # Komenda uruchamiająca aplikację
