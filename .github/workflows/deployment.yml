@@ -13,13 +13,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # Authenticate using a Google Cloud service account
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      # Set up Google Cloud SDK
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ vars.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          export_default_credentials: true
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          install_components: 'alpha'  # Optional, if you need extra components
 
       - name: Build and Push Docker image for Backend to Artifact Registry
         run: |
@@ -51,12 +56,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # Authenticate using a Google Cloud service account
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      # Set up Google Cloud SDK
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ vars.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          export_default_credentials: true
+          install_components: 'alpha'  # Optional, if you need extra components
 
       - name: Modify Frontend to Use Backend URL
         run: |
