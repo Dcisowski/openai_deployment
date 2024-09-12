@@ -23,14 +23,14 @@ jobs:
 
       - name: Build and Push Docker image for Backend to Artifact Registry
         run: |
-          docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/openai-repo/openai-backend:$GITHUB_SHA -f ./openai_backend/Dockerfile .
-          docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/openai-repo/openai-backend:$GITHUB_SHA
+          docker build -t us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/openai-repo/openai-backend:$GITHUB_SHA -f ./openai_backend/Dockerfile .
+          docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/openai-repo/openai-backend:$GITHUB_SHA
 
       - name: Deploy Backend to Cloud Run
         id: deploy-backend
         run: |
           gcloud run deploy openai-backend-service \
-            --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/openai-repo/openai-backend:$GITHUB_SHA \
+            --image us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/openai-repo/openai-backend:$GITHUB_SHA \
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated \
@@ -54,7 +54,7 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          project_id: ${{ vars.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
 
@@ -64,13 +64,13 @@ jobs:
 
       - name: Build and Push Docker image for Frontend to Artifact Registry
         run: |
-          docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/openai-repo/openai-frontend:$GITHUB_SHA -f ./openai_frontend/Dockerfile .
-          docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/openai-repo/openai-frontend:$GITHUB_SHA
+          docker build -t us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/openai-repo/openai-frontend:$GITHUB_SHA -f ./openai_frontend/Dockerfile .
+          docker push us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/openai-repo/openai-frontend:$GITHUB_SHA
 
       - name: Deploy Frontend to Cloud Run
         run: |
           gcloud run deploy openai-frontend-service \
-            --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/openai-repo/openai-frontend:$GITHUB_SHA \
+            --image us-central1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/openai-repo/openai-frontend:$GITHUB_SHA \
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated
